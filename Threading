@@ -1,0 +1,118 @@
+import java.util.*;
+class Gifts {
+    public int g = 50; 
+    public synchronized void fetch() {
+        System.out.println("You are one of our first 50 customers today !!!....enjoy the gift");
+            g--;
+            System.out.println("The remanining gifts for today are ="+g);
+        }
+    }
+     class customer {
+    
+        String name;
+        int n;
+        customer(String name,int n){
+            this.name=name;
+            this.n=n;
+       }
+    }
+    class total{
+       public int cal(int p){
+            int t=0;
+            t=t+p;
+            return t;
+        }
+    }
+public class Main {
+    public static void main(String[] args)  throws Exception{
+        Scanner in=new Scanner(System.in);
+         Scanner sc=new Scanner(System.in);
+         customer c1= new customer("Aman",3);
+        customer c2= new customer("Vikas",2);
+        total c= new total();
+        Gifts gift= new Gifts();
+        System.out.println("Hello Users !!"+" "+"First 50 customers of the day gets a gift");
+        Thread t3=new Thread(new Runnable() {
+          
+            public void run(){
+                for(int i=1;i<=c1.n;i++){
+                    System.out.println("Hello"+" "+c1.name+" "+"Deposit yout item"+" "+i);
+                }
+                
+            }
+        });
+        Thread t4=new Thread(new Runnable() {
+            public void run(){
+                for(int i=1;i<=c2.n;i++){
+                    System.out.println("Hello"+" "+c2.name+" "+"Deposit yout item"+" "+i);
+                   
+                }
+                
+            }
+        });
+        Thread t1=new Thread(new Runnable() {
+            public void run(){
+                int v=0;
+                for(int i=1;i<=c1.n;i++){
+                     System.out.println("Enter item price of " + c1.name + " (Item " + i + "):");
+                    int price = in.nextInt();
+                    v= v+c.cal(price);
+                }
+                System.out.println(" Final total for " +c1.name +" "+ "is"+" "+v);
+                gift.fetch();
+                
+            }
+        
+            
+        });
+        Thread t2=new Thread(new Runnable() {
+            public void run(){
+                int k=0;
+                for(int j=1;j<=c2.n;j++){
+                      System.out.println("Enter item price of " + c2.name + " (Item " + j + "):");
+                      int price2 = sc.nextInt();
+                    
+                       k= k+c.cal(price2);
+                     }
+                System.out.println("Final total for " +c2.name+" "+ "is" +" "+k);
+                gift.fetch();
+            }
+        });
+        t3.start();
+        t4.start();
+        t3.join();
+        t4.join();
+        t1.start();
+        t1.join();
+        t2.start();
+        t2.join();
+        in.close();
+        sc.close();
+       
+    }
+}
+
+
+Hello Users !! First 50 customers of the day gets a gift
+Hello Aman Deposit yout item 1
+Hello Aman Deposit yout item 2
+Hello Vikas Deposit yout item 1
+Hello Vikas Deposit yout item 2
+Hello Aman Deposit yout item 3
+Enter item price of Aman (Item 1):
+45
+Enter item price of Aman (Item 2):
+42
+Enter item price of Aman (Item 3):
+80
+ Final total for Aman is 167
+You are one of our first 50 customers today !!!....enjoy the gift
+The remanining gifts for today are =49
+Enter item price of Vikas (Item 1):
+50
+Enter item price of Vikas (Item 2):
+124
+Final total for Vikas is 174
+You are one of our first 50 customers today !!!....enjoy the gift
+The remanining gifts for today are =48
+PS C:\Users\TRISHA NATH\OneDrive\Documents\Cognifz> 
